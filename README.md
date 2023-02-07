@@ -111,7 +111,5 @@ Please report any issues here on GitHub. Enjoy!
   - Converted to a HA integration.
   - Added manifest file.
   - Moved Function 'notify_status' inside 'async_setup'.
-  
-  
-  
-##Raspberry Pi setup tips
+
+## Raspberry Pi setup tips

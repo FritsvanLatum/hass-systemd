@@ -3,6 +3,7 @@
 Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 (C) Timothy Brown 2018.11.18
+
 (C) Frits  van Latum 2023.02.07
 
 ## Instructions
@@ -110,3 +111,7 @@ Please report any issues here on GitHub. Enjoy!
   - Converted to a HA integration.
   - Added manifest file.
   - Moved Function 'notify_status' inside 'async_setup'.
+  
+  
+  
+##Raspberry Pi setup tips
