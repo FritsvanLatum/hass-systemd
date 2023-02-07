@@ -1,0 +1,23 @@
+[Unit]
+Description=Home Assistant
+After=network-online.target
+Wants=network-online.target
+Before=
+
+[Service]
+Type=notify
+# User HA is to run under.   *** Change this for your configuration. ***
+User=homeassistant
+# Path to the HA executable. *** Change this for your configuration. ***
+ExecStart=/path/to/hass/bin/hass -c "/path/to/hass/config"
+# This service has a start, stop and watchdog timeout of 5 minutes. The service will automatically
+# restart 15 seconds after a timeout or crash.
+TimeoutStartSec=5m
+TimeoutStopSec=5m
+WatchdogSec=5m
+Restart=on-failure
+RestartSec=15s
+
+
+[Install]
+WantedBy=multi-user.target
