@@ -1,5 +1,7 @@
 # hass-systemd v0.1.3
 
+----UNDER DEVELOPMENT----
+
 Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 (C) Timothy Brown 2018.11.18    
@@ -9,7 +11,7 @@ Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 ### Raspberry Pi
 
-These instructions assume you're working with a Raspberry Pi, with **Raspberry PI OS** and a user **pi**
+These instructions assume you're working with a Raspberry Pi, with **Raspberry PI OS** and a user `pi`
 for logging in.
 See [Raspberry Pi setup](#Raspberry%20Pi%20setup) for some tips about setting up your Raspberry Pi.
 
@@ -18,18 +20,18 @@ See [Raspberry Pi setup](#Raspberry%20Pi%20setup) for some tips about setting up
 These instructions further assume you have installed Home Assistant Core following
 the documentation in [Install Home Assistant Core](https://www.home-assistant.io/installation/linux#install-home-assistant-core).
 
-The complete Home Assistant [installation documentation](https://www.home-assistant.io/installation/linux) on
-linux describes four methods: (1) installation of Home Assistant with its own special operating system, (2) installation 
+The complete Home Assistant [linux installation documentation](https://www.home-assistant.io/installation/linux)
+describes four methods: (1) installation of Home Assistant with its own special operating system, (2) installation 
 in a container, (3) plain installation on linux of Home Assistant Core and (4) the installation of Home Assistant Supervised.
 
 So we are assuming the third method. This means:
 
-- you have created a user **homeassistant**
-- this user has **\home\homeassistant** as its home directory
-- you have created a the directory **\srv\homeassistant** 
+- you have created a user `homeassistant`
+- this user has `\home\homeassistant` as its home directory
+- you have created a the directory `\srv\homeassistant` 
 - and installed the Home Assistant software in a Python3 virtual environment.
 
-During the installation a configuration directory **/home/homeassistant/.homeassistant** is created.
+During the installation a configuration directory `/home/homeassistant/.homeassistant` is created.
 
 After installation Home Assistant is started by giving the next four commands:
 
@@ -41,8 +43,8 @@ After installation Home Assistant is started by giving the next four commands:
 
 `hass`
 
-meaning: start a new session logged in as **homeassistant**, goto the installation directory, activate the
-virtual environment and start Home Assistant with **hass**.
+meaning: start a new session logged in as `homeassistant`, goto the installation directory, activate the
+virtual environment and start Home Assistant with `hass`.
 
 ### Running Home Assistant automatically, as a deamon
 
