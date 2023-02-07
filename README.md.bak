@@ -2,8 +2,7 @@
 
 Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
-(C) Timothy Brown 2018.11.18
-
+(C) Timothy Brown 2018.11.18    
 (C) Frits  van Latum 2023.02.07
 
 ## Instructions
@@ -12,10 +11,16 @@ Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 These instructions assume you're working with a Raspberry Pi, with **Raspberry PI OS** and a user **pi**
 for logging in.
-See [Raspberry Pi setup tips](#Raspberry Pi setup tips) for some tips about setting up your Raspberry Pi.
+See [Raspberry Pi setup](#Raspberry%20Pi%20setup) for some tips about setting up your Raspberry Pi.
 
+### Home Assistant
 
+These instructions further assume you have installed Home Assistant Core following
+the documentation in [Install Home Assistant Core](https://www.home-assistant.io/installation/linux#install-home-assistant-core).
 
+The complete Home Assistant [installation documentation](https://www.home-assistant.io/installation/linux) on
+linux describes four methods: (1) installation of Home Assistant with its own special operating system, (2) installation 
+in a container, (3) plain installation on linux of Home Assistant Core and (4) the installation of Home Assistant Supervised.
 
 
 
@@ -112,4 +117,4 @@ Please report any issues here on GitHub. Enjoy!
   - Added manifest file.
   - Moved Function 'notify_status' inside 'async_setup'.
 
-## Raspberry Pi setup tips
+## Raspberry Pi setup
