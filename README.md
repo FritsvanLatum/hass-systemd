@@ -24,12 +24,24 @@ in a container, (3) plain installation on linux of Home Assistant Core and (4) t
 
 So we are assuming the third method. This means:
 
-- you have created a user 'homeassistant'
+- you have created a user **homeassistant**
+- this user has **\home\homeassistant** as its home directory
+- you have created a the directory **\srv\homeassistant** 
+- and installed the Home Assistant software in a Python3 virtual environment.
+
+During the installation a configuration directory **/home/homeassistant/.homeassistant** is created.
+
+After installation Home Assistant is started by giving the next four commands:
+
+`sudo -u homeassistant -H -s`
+`cd /srv/homeassistant`
+`source bin/activate`
+`hass`
+
+meaning: start a new session logged in as **homeassistant**, goto the installation directory, activate the
+virtual environment and start Home Assistant with **hass**.
 
 
-have HA installed into `/srv/homeassistant`, are running as system user named `homeassistant` and
-using a configuration directory of `/home/homeassistant/.homeassistant`.
-Please change any paths as needed for your particular setup.
 
 - Make sure we're in our login user's home directory:
   - `cd ~`

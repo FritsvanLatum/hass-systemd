@@ -22,7 +22,9 @@ The complete Home Assistant [installation documentation](https://www.home-assist
 linux describes four methods: (1) installation of Home Assistant with its own special operating system, (2) installation 
 in a container, (3) plain installation on linux of Home Assistant Core and (4) the installation of Home Assistant Supervised.
 
+So we are assuming the third method. This means:
 
+- you have created a user 'homeassistant'
 
 
 have HA installed into `/srv/homeassistant`, are running as system user named `homeassistant` and
