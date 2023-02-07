@@ -1,5 +1,7 @@
 # hass-systemd v0.1.3
 
+----UNDER DEVELOPMENT----
+
 Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 (C) Timothy Brown 2018.11.18    
@@ -110,7 +112,9 @@ Now we'll copy and enable the new service:
 
 
 Now test the new service:
+
 `sudo systemctl start hass.service; journalctl -f -u hass.service`
+
 and monitor the journal and make sure no errors appear:
 Wait for at least 5 minutes to make sure the watchdog is functioning.
 
