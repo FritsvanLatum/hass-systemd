@@ -90,21 +90,41 @@ Edit the systemd service file to reflect your configuration:
 (The `ExecStart=` and `User=` lines are the only ones that might be changed.)
 
 
-- Setup the systemd service:
-  - `sudo chown root:root /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
-  - If you're already using systemd to launch HA, you'll need to stop the existing
-          service first and replace it with the included file. This can be done as follows:
-    - `sudo systemctl disable --now my-ha.service`
-  - Now we'll copy and enable the new service:
-    - `sudo cp /home/homeassistant/.homeassistant/custom_components/systemd/hass.service /etc/systemd/system/`
-    - `sudo systemctl daemon-reload`
-    - `sudo systemctl enable hass.service`
-- Start the new service and monitor the journal and make sure no errors appear:
-  - `sudo systemctl start hass.service; journalctl -f -u hass.service`
-  - Wait for at least 5 minutes to make sure the watchdog is functioning.
-- Verify the component is reporting status to systemd:
-  - `sudo systemctl status hass.service`
-  - Look for the 'Status:' line near the top, it should read "Home Assistant is running."
+Setup the systemd service:
+
+`sudo chown root:root /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
+
+
+If you're already using systemd to launch HA, you'll need to stop the existing
+service first and replace it with the included file. This can be done as follows:
+
+`sudo systemctl disable --now my-ha.service`
+
+Now we'll copy and enable the new service:
+
+`sudo cp /home/homeassistant/.homeassistant/custom_components/systemd/hass.service /etc/systemd/system/`
+
+`sudo systemctl daemon-reload`
+
+`sudo systemctl enable hass.service`
+
+
+Now test the new service:
+`sudo systemctl start hass.service; journalctl -f -u hass.service`
+and monitor the journal and make sure no errors appear:
+Wait for at least 5 minutes to make sure the watchdog is functioning.
+
+
+`sudo systemctl start hass.service`
+
+`sudo systemctl stop hass.service`
+
+Verify the component is reporting status to systemd:
+
+`sudo systemctl status hass.service`
+
+
+Look for the 'Status:' line near the top, it should read "Home Assistant is running."
 
 
 ## Service File Options
