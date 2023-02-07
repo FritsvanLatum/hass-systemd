@@ -34,30 +34,62 @@ During the installation a configuration directory **/home/homeassistant/.homeass
 After installation Home Assistant is started by giving the next four commands:
 
 `sudo -u homeassistant -H -s`
+
 `cd /srv/homeassistant`
+
 `source bin/activate`
+
 `hass`
 
 meaning: start a new session logged in as **homeassistant**, goto the installation directory, activate the
 virtual environment and start Home Assistant with **hass**.
 
+### Running Home Assistant automatically, as a deamon
+
+Now we want to run Home Assistant automatically, without a terminal. It should also start automatically when
+the Raspberry Pi is started. More in detail: we want Home Assistant to run as a systemd notify daemon, with watchdog support.
+
+The linux operating system of your Raspberry Pi must have systemd. 
+
+These are the instructions:
+ 
+
+Make sure we're in our login user's home directory:
+
+`cd ~`
+
+Create the custom components directory, if needed:
+
+`sudo -u homeassistant mkdir -p /home/homeassistant/.homeassistant/custom_components`
 
 
-- Make sure we're in our login user's home directory:
-  - `cd ~`
-- Create the custom components directory, if needed:
-  - `sudo -u homeassistant mkdir -p /home/homeassistant/.homeassistant/custom_components`
-- Download the plugin files:
-  - `sudo git clone https://github.com/timothybrown/hass-systemd.git /home/homeassistant/.homeassistant/custom_components/systemd`
-- Set file permissions:
-  - `sudo chown -R homeassistant:homeassistant /home/homeassistant/.homeassistant/custom_components/systemd`
-- Edit your HA configuration to enable our new component:
-  - `sudo -u homeassistant nano /home/homeassistant/.homeassistant/configuration.yaml`
-  - Add the following line somewhere in the file:
-    - `systemd:`
-- Edit the systemd service file to reflect your configuration:
-  - `sudo -u homeassistant nano /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
-  - (The `ExecStart=` and `User=` line is the only thing that really needs to be changed.)
+Download the plugin files:
+
+`sudo git clone https://github.com/FritsvanLatum/hass-systemd.git /home/homeassistant/.homeassistant/custom_components/systemd`
+
+
+Set file permissions:
+
+`sudo chown -R homeassistant:homeassistant /home/homeassistant/.homeassistant/custom_components/systemd`
+
+
+Edit your HA configuration to enable our new component:
+
+`sudo -u homeassistant nano /home/homeassistant/.homeassistant/configuration.yaml`
+
+
+and add the following line somewhere in the file:
+    
+`systemd:`
+
+
+Edit the systemd service file to reflect your configuration:
+
+`sudo -u homeassistant nano /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
+
+(The `ExecStart=` and `User=` lines are the only ones that might be changed.)
+
+
 - Setup the systemd service:
   - `sudo chown root:root /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
   - If you're already using systemd to launch HA, you'll need to stop the existing
