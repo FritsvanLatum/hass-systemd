@@ -12,7 +12,7 @@ Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 These instructions assume you're working with a Raspberry Pi, with **Raspberry PI OS** and a user **pi**
 for logging in.
-See [Raspberry Pi setup tips](#Raspberry Pi setup tips) for some tips about setting up your Raspberry Pi.
+See [Raspberry Pi setup](#Raspberry%20Pi%20setup) for some tips about setting up your Raspberry Pi.
 
 
 
@@ -112,4 +112,4 @@ Please report any issues here on GitHub. Enjoy!
   - Added manifest file.
   - Moved Function 'notify_status' inside 'async_setup'.
 
-## Raspberry Pi setup tips
+## Raspberry Pi setup
