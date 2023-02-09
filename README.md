@@ -2,7 +2,8 @@
 
 ----UNDER DEVELOPMENT----
 
-Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
+Install Home Assistant Core on linux, e.g. on a Raspberry Pi, and run Home Assistant as a systemd notify daemon,
+with watchdog support.
 
 (C) Timothy Brown 2018.11.18    
 (C) Frits  van Latum 2023.02.07
@@ -11,29 +12,35 @@ Allows Home Assistant to run as a systemd notify daemon, with watchdog support.
 
 ### Raspberry Pi
 
-These instructions assume you're working with a Raspberry Pi, with **Raspberry PI OS** and a user `pi`
-for logging in.
+These instructions assume you're working on a Raspberry Pi, with **Raspberry PI OS** already installed. 
 See [Raspberry Pi setup](#Raspberry%20Pi%20setup) for some tips about setting up your Raspberry Pi.
 
 ### Home Assistant Installation
 
 The installation procedure of **Home Assistant Core** as decribed in
 [Install Home Assistant Core](https://www.home-assistant.io/installation/linux#install-home-assistant-core) is **NOT** 
-complete. Two dependencies are missing. Just before creating the account `homeassistant` add:
+complete. Two dependencies are missing. You can add these after installing the list of dependenncies and just before
+creating the account `homeassistant`:
 
 `sudo apt-get install -y rustc`
 
+The rustc compiler is used to install Home Assistant's cryptography module.
+
 `sudo apt-get install -y libatlas-base-dev`
 
-At the end of the procedure, the installation command itself:
+This is an addon needed by the numpy module.
+
+
+Furthermore, at the end of the procedure, the installation command itself:
 
 `pip3 install homeassistant==2023.2.x`
 
-frequently results in an error message saying that the version cannot be found. This is the work around:
+frequently results in an error message saying that the (latest) version cannot (yet) be found in the pip repository.
+This is the work around:
 
 `pip3 install homeassistant`
 
-which installs the latest available version. The installation can last more than 10 minutes, so be patient.
+which installs the latest available version. The installation can last more than 10 minutes, so be (very) patient.
 
 After the installation:
 
@@ -41,23 +48,23 @@ After the installation:
 - this user has `\home\homeassistant` as its home directory
 - you have created a the directory `\srv\homeassistant`
 - and installed the Home Assistant software in a Python3 virtual environment
-- while autmatically a configuration directory `/home/homeassistant/.homeassistant` is created.
+- while autmatically a configuration directory `/home/homeassistant/.homeassistant` has been created.
 
-After installation Home Assistant is started by:
-
-`hass`
-
-When you want to start Home Assistant again, for instance after closing your terminal window:
-
-Open a new terminal window, log into the Raspberry Pi (user `pi`) and use the following commands:
-
-`sudo -u homeassistant -H -s`
-
-`cd /srv/homeassistant`
-
-`source bin/activate`
+According to the installation instructions Home Assistant is now started by:
 
 `hass`
+
+keeping the terminal window open...
+
+When you want to start Home Assistant again, for instance after closing your terminal window, you have to 
+use the following commands:
+
+```
+sudo -u homeassistant -H -s
+cd /srv/homeassistant
+source bin/activate
+hass
+```
 
 meaning: start a new session logged in as `homeassistant`, goto the installation directory, activate the
 virtual environment and start Home Assistant with `hass`.
@@ -65,7 +72,8 @@ virtual environment and start Home Assistant with `hass`.
 ### Running Home Assistant automatically, as a deamon
 
 Now we want to run Home Assistant automatically, without a terminal. It should also start automatically when
-the Raspberry Pi is started. More in detail: we want Home Assistant to run as a systemd notify daemon, with watchdog support.
+the Raspberry Pi is started. More in detail: we want Home Assistant to run as a systemd notify daemon, with
+watchdog support.
 
 The linux operating system of your Raspberry Pi must have systemd. 
 
