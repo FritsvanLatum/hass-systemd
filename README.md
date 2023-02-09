@@ -1,4 +1,4 @@
-# hass-systemd v0.1.3
+# hass-systemd v0.2.1
 
 ----UNDER DEVELOPMENT----
 
@@ -80,10 +80,6 @@ The linux operating system of your Raspberry Pi must have `systemd`.
 These are the instructions:
  
 
-Make sure we're in our login user's home directory:
-
-`cd ~`
-
 Create the custom components directory, if needed:
 
 `sudo -u homeassistant mkdir -p /home/homeassistant/.homeassistant/custom_components`
@@ -132,11 +128,11 @@ service first and replace it with the included file. This can be done as follows
 
 Now we'll copy and enable the new service:
 
-`sudo cp /home/homeassistant/.homeassistant/custom_components/systemd/hass.service /etc/systemd/system/`
-
-`sudo systemctl daemon-reload`
-
-`sudo systemctl enable hass.service`
+```
+sudo cp /home/homeassistant/.homeassistant/custom_components/systemd/hass.service /etc/systemd/system/
+sudo systemctl daemon-reload`
+sudo systemctl enable hass.service
+```
 
 
 Now test the new service:
@@ -177,34 +173,62 @@ ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
 If you want to order other services to start before or after HA, you'll need to add their units to the
 `Before=` or `After=` directives in the `[Unit]` section. Required dependencies should be added to the
 `After=` *and* `Wants=` directives. Here are some tips:
-- *Network*
-  To delay HA until the network is up, add `network-online.target` to the `After=` and `Wants=` directives.
-- *Time Sync*
-  To make sure your system clock is set before HA starts, add `time-sync.target` to the `After=` and
-  `Wants=` directives, then run `systemctl enable systemd-time-wait-sync.service` to enable the target.
-- *Bluetooth*
-  If you use BTLE for device tracking, add `bluetooth.target` to the `After=` and `Wants=` directives.
-- *Databases*
-  If you use an external database (Postgres, MySQL, etc.), make sure it starts first by adding
-  the unit name to the `After=` and `Wants=` directives.
-- *MQTT*
-  If you run a local instance of Mosquitto, add `mosquitto.service` to the `After=` and `Wants=` directives.
+
+*Network*     
+To delay HA until the network is up, add `network-online.target` to the `After=` and `Wants=` directives.
+This is already done in `hass.service` in this repository.
+
+*Time Sync*
+To make sure your system clock is set before HA starts, add `time-sync.target` to the `After=` and
+`Wants=` directives, then run `systemctl enable systemd-time-wait-sync.service` to enable the target.
+
+*Bluetooth*
+If you use BTLE for device tracking, add `bluetooth.target` to the `After=` and `Wants=` directives.
+
+*Databases*
+If you use an external database (Postgres, MySQL, etc.), make sure it starts first by adding
+the unit name to the `After=` and `Wants=` directives.
+
+*MQTT*
+If you run a local instance of Mosquitto, add `mosquitto.service` to the `After=` and `Wants=` directives.
+
+
 ### Timeouts
 The various timeout directives in the `[Service]` section control how and when systemd restarts HA
 on failures and errors.
-- `TimeoutStartSec` & `TimeoutStopSec`
-  Controls how long systemd waits for HA to complete startup and shutdown operations, respectivly.
-- `WatchdogSec`
-  The hass-systemd component must 'pet the dog' within this interval or systemd will kill HA. Comment
-  this out to disable watchdog functionality.
-- `Restart`
-  Action to take when one of the above timeouts is reached. Default is to restart the service.
-- `RestartSec`
-  Delay between a timeout and performing the above action.
+
+These directives are included:
+
+```
+TimeoutStartSec=5m
+TimeoutStopSec=5m
+WatchdogSec=5m
+Restart=on-failure
+RestartSec=15s
+```
+
+`TimeoutStartSec` & `TimeoutStopSec`     
+Controls how long systemd waits for HA to complete startup and shutdown operations, respectivly.
+
+`WatchdogSec`     
+The hass-systemd component must 'pet the dog' within this interval or systemd will kill HA. Comment
+this out to disable watchdog functionality.
+
+`Restart`     
+Action to take when one of the above timeouts is reached. Default is to restart the service.
+
+`RestartSec`     
+Delay between a timeout and performing the above action.
 
 
 ## Known Issues
 Please report any issues here on GitHub. Enjoy!
+
+  
+## Raspberry Pi setup
+
+
+
 
 ## Version History
 - 0.1.0 (2018.11.16)
@@ -218,5 +242,7 @@ Please report any issues here on GitHub. Enjoy!
   - Converted to a HA integration.
   - Added manifest file.
   - Moved Function 'notify_status' inside 'async_setup'.
-
-## Raspberry Pi setup
+- 0.2.1 (2023-02-09)
+  - Edited the readme file (this text)
+  - Edited the service file accordingly
+  - Added Version to the manifest json file
