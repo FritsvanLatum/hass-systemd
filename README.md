@@ -178,18 +178,18 @@ If you want to order other services to start before or after HA, you'll need to 
 To delay HA until the network is up, add `network-online.target` to the `After=` and `Wants=` directives.
 This is already done in `hass.service` in this repository.
 
-*Time Sync*
+*Time Sync*     
 To make sure your system clock is set before HA starts, add `time-sync.target` to the `After=` and
 `Wants=` directives, then run `systemctl enable systemd-time-wait-sync.service` to enable the target.
 
-*Bluetooth*
+*Bluetooth*     
 If you use BTLE for device tracking, add `bluetooth.target` to the `After=` and `Wants=` directives.
 
-*Databases*
+*Databases*     
 If you use an external database (Postgres, MySQL, etc.), make sure it starts first by adding
 the unit name to the `After=` and `Wants=` directives.
 
-*MQTT*
+*MQTT*     
 If you run a local instance of Mosquitto, add `mosquitto.service` to the `After=` and `Wants=` directives.
 
 
