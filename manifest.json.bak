@@ -1,8 +1,0 @@
-{
-    "domain": "systemd",
-    "name": "Systemd Notify Service",
-    "documentation": "https://www.github.com/timothybrown/hass-systemd",
-    "dependencies": [],
-    "codeowners": ["@timothybrown"],
-    "requirements": ["systemd-python>=234"]
-}
