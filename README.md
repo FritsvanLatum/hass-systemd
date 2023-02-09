@@ -75,7 +75,7 @@ Now we want to run Home Assistant automatically, without a terminal. It should a
 the Raspberry Pi is started. More in detail: we want Home Assistant to run as a systemd notify daemon, with
 watchdog support.
 
-The linux operating system of your Raspberry Pi must have systemd. 
+The linux operating system of your Raspberry Pi must have `systemd`. 
 
 These are the instructions:
  
@@ -91,7 +91,8 @@ Create the custom components directory, if needed:
 
 Download the plugin files:
 
-`sudo git clone https://github.com/FritsvanLatum/hass-systemd.git /home/homeassistant/.homeassistant/custom_components/systemd`
+```sudo git clone https://github.com/FritsvanLatum/hass-systemd.git     
+        /home/homeassistant/.homeassistant/custom_components/systemd```
 
 
 Set file permissions:
@@ -109,14 +110,15 @@ and add the following line somewhere in the file:
 `systemd:`
 
 
-Edit the systemd service file to reflect your configuration:
+If your Home Assistant user is not called `homeassistant` or you have chosen another installation directory for
+Home Assistant, you have to edit the systemd service file:
 
 `sudo -u homeassistant nano /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
 
-(The `ExecStart=` and `User=` lines are the only ones that might be changed.)
+and make changes to the `ExecStart=` and `User=` lines.
 
 
-Setup the systemd service:
+Now we are going to setup the systemd service. First make `root` the owner of the service file:
 
 `sudo chown root:root /home/homeassistant/.homeassistant/custom_components/systemd/hass.service`
 
@@ -139,33 +141,35 @@ Now test the new service:
 
 `sudo systemctl start hass.service; journalctl -f -u hass.service`
 
-and monitor the journal and make sure no errors appear:
+monitor the journal and make sure no errors appear. 
 Wait for at least 5 minutes to make sure the watchdog is functioning.
 
+Interupt the journal. You can stop, start and restart the service:
 
-`sudo systemctl start hass.service`
+```sudo systemctl stop hass.service
+sudo systemctl start hass.service
+sudo systemctl restart hass.service```
 
-`sudo systemctl stop hass.service`
-
-Verify the component is reporting status to systemd:
+You can also check the status of the service:
 
 `sudo systemctl status hass.service`
-
 
 Look for the 'Status:' line near the top, it should read "Home Assistant is running."
 
 
 ## Service File Options
 ### Required Options
+
 The only options that *must* be set before using the service file are in the `[Service]` section:
-- `Type`
-  This option *must* be set to `notify`.
-- `ExecStart`
-  Command used to start HA.
-- `User`
-  Username to run HA under.
+
+```
+Type=notify
+User=homeassistant
+ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
+```
 
 ### After, Wants, Before
+
 If you want to order other services to start before or after HA, you'll need to add their units to the
 `Before=` or `After=` directives in the `[Unit]` section. Required dependencies should be added to the
 `After=` *and* `Wants=` directives. Here are some tips:
