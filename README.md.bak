@@ -159,15 +159,17 @@ Look for the 'Status:' line near the top, it should read "Home Assistant is runn
 
 ## Service File Options
 ### Required Options
+
 The only options that *must* be set before using the service file are in the `[Service]` section:
-- `Type`
-  This option *must* be set to `notify`.
-- `ExecStart`
-  Command used to start HA.
-- `User`
-  Username to run HA under.
+
+```
+Type=notify
+User=homeassistant
+ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
+```
 
 ### After, Wants, Before
+
 If you want to order other services to start before or after HA, you'll need to add their units to the
 `Before=` or `After=` directives in the `[Unit]` section. Required dependencies should be added to the
 `After=` *and* `Wants=` directives. Here are some tips:
