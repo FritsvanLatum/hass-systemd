@@ -1,6 +1,5 @@
 # hass-systemd v0.2.1
 
-----UNDER DEVELOPMENT----
 
 Install Home Assistant Core on linux, e.g. on a Raspberry Pi, and run Home Assistant as a systemd notify daemon,
 with watchdog support.
