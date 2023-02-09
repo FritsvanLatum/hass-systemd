@@ -91,8 +91,10 @@ Create the custom components directory, if needed:
 
 Download the plugin files:
 
-```sudo git clone https://github.com/FritsvanLatum/hass-systemd.git     
-        /home/homeassistant/.homeassistant/custom_components/systemd```
+```
+sudo git clone https://github.com/FritsvanLatum/hass-systemd.git     
+        /home/homeassistant/.homeassistant/custom_components/systemd
+```
 
 
 Set file permissions:
@@ -146,9 +148,11 @@ Wait for at least 5 minutes to make sure the watchdog is functioning.
 
 Interupt the journal. You can stop, start and restart the service:
 
-```sudo systemctl stop hass.service
+```
+sudo systemctl stop hass.service
 sudo systemctl start hass.service
-sudo systemctl restart hass.service```
+sudo systemctl restart hass.service
+```
 
 You can also check the status of the service:
 
